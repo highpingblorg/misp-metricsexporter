@@ -42,7 +42,7 @@ TLP taxonomy enabled and tags active
 # All commands assume that you are root.
 apt install python3 virtualenv git moreutils cron
 cd /opt
-git clone URL
+git clone https://github.com/Truesec/misp-metricsexporter.git
 cd misp-metricsexporter
 virtualenv .venv
 chmod -R 600 /opt/misp-metricsexporter
