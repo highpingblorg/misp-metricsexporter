@@ -51,9 +51,10 @@ def diagnostics(data, instancename, registry):
 def tags(data, instancename, registry):
     g = Gauge("tlp_stats", 'Count of TLP tags on instance', labelnames=['tlp', 'instancename'], namespace='misp', registry=registry)
     for tlp in ["tlp:red", "tlp:amber+strict", "tlp:amber", "tlp:green", "tlp:white", "tlp:clear"]:
-        if tlp in data["flatData"]["tlp"]:
-            metric = tlp.translate(str.maketrans({':': '_', '+': '_'}))
-            g.labels(tlp=metric, instancename=instancename).set(data["flatData"]["tlp"][tlp]["size"])
+        if "tlp" in data.get("flatdata", {}):
+            if tlp in  data['flatData']["tlp"]:
+                metric = tlp.translate(str.maketrans({':': '_', '+': '_'}))
+                g.labels(tlp=metric, instancename=instancename).set(data["flatData"]["tlp"][tlp]["size"])
 
 def run(data, instancename):
     # Create a Prometheus registry
